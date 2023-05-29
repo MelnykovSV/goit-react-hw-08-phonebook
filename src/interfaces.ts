@@ -1,18 +1,18 @@
 export interface IUserData {
   name: string;
   email: string;
-  userPassword: string;
+  password: string;
 }
 
 export interface ISignUpData {
   name: string;
   email: string;
-  userPassword: string;
+  password: string;
 }
 
 export interface ISignInData {
   email: string;
-  userPassword: string;
+  password: string;
 }
 
 export interface ISignUpProps {

@@ -1,7 +1,7 @@
 import { Container } from './SignUp.styled';
 import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import { ISignUpProps } from '../../interfaces';
+import { ISignUpProps, ISignUpData } from '../../interfaces';
 
 export const SignUp = ({ signUpHandler }: ISignUpProps) => {
   const schema = yup.object().shape({
@@ -32,10 +32,7 @@ export const SignUp = ({ signUpHandler }: ISignUpProps) => {
   });
 
   async function submitHandler(
-    values: {
-      name: string;
-      phone: string;
-    },
+    values: ISignUpData,
     { resetForm }: { resetForm: () => void }
   ): Promise<void> {
     const isValid = await schema.isValid(values);
