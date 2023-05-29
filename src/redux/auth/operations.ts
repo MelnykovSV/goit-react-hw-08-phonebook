@@ -13,8 +13,8 @@ export const signUp = createAsyncThunk(
         email,
         password,
       });
-      return response.data;
       console.log(response);
+      return response.data;
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(getErrorMessage(error));
