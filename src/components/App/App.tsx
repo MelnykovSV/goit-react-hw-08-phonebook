@@ -3,7 +3,7 @@ import { SignUp } from '../SignUp/SignUp';
 import { SignIn } from '../SignIn/SignIn';
 import { Container } from '../SignUp/SignUp.styled';
 import { ISignUpData, ISignInData } from '../../interfaces';
-import { signUp, signIn } from '../../redux/auth/operations';
+import { signUp, logIn, logOut } from '../../redux/auth/operations';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 export const App = () => {
@@ -16,7 +16,7 @@ export const App = () => {
 
   const signInHandler = (data: ISignInData) => {
     console.log(data);
-    dispatch(signIn(data));
+    dispatch(logIn(data));
     return true;
   };
   return (
@@ -24,7 +24,14 @@ export const App = () => {
       <SignUp signUpHandler={signUpHandler}></SignUp>
       <SignIn signInHandler={signInHandler}></SignIn>
 
-      <button type="button">Log out</button>
+      <button
+        type="button"
+        onClick={() => {
+          dispatch(logOut());
+        }}
+      >
+        Log out
+      </button>
     </Container>
   );
 };

@@ -41,3 +41,7 @@ export interface IUserPayload {
 export interface IError {
   message: string;
 }
+
+export interface IAxiosObject {
+  defaults: { common: { Authorization?: string } };
+}

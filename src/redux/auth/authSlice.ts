@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // import { signUp } from '../../components/SignUp/SignUp';
-import { signUp, signIn } from './operations';
+import { signUp, logIn, logOut } from './operations';
 import { IAuthSliceState, IUserPayload, IError } from '../../interfaces';
 
 const initialState: IAuthSliceState = {
@@ -35,11 +35,11 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = action.error.message || 'Something went wrong';
     });
-    builder.addCase(signIn.pending, state => {
+    builder.addCase(logIn.pending, state => {
       state.isLoading = true;
     });
     builder.addCase(
-      signIn.fulfilled,
+      logIn.fulfilled,
       (state, action: PayloadAction<IUserPayload>) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
@@ -48,7 +48,21 @@ const authSlice = createSlice({
         state.error = null;
       }
     );
-    builder.addCase(signIn.rejected, (state, action) => {
+    builder.addCase(logIn.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message || 'Something went wrong';
+    });
+    builder.addCase(logOut.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(logOut.fulfilled, state => {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLoggedIn = false;
+      state.isLoading = false;
+      state.error = null;
+    });
+    builder.addCase(logOut.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message || 'Something went wrong';
     });
