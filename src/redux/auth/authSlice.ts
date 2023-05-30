@@ -4,7 +4,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { signUp } from './operations';
 
 const initialState: IContactsState = {
-  data: [],
+  usera: { name: null, email: null },
+  token: null,
+  isLoggedIn: false,
   isLoading: false,
   error: null,
 };
