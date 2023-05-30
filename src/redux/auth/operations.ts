@@ -1,16 +1,7 @@
-import {
-  ISignUpData,
-  ISignInData,
-  IUserPayload,
-  IAxiosObject,
-} from '../../interfaces';
 import axios from 'axios';
 import { getErrorMessage } from '../../getErrorMessage';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
-import { AxiosRequestHeaders } from 'axios';
-
-const typedAxios = axios as typeof axios & IAxiosObject;
+import { ISignUpData, ISignInData, IUserPayload } from '../../interfaces';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
