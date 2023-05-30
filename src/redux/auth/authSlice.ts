@@ -77,9 +77,12 @@ const authSlice = createSlice({
         state.user = action.payload;
         console.log(action.payload);
 
-        state.isLoggedIn = true;
         state.isLoading = false;
         state.error = null;
+
+        if (action.payload) {
+          state.isLoggedIn = true;
+        }
       }
     );
     builder.addCase(fetchCurrentUser.rejected, (state, action) => {
@@ -92,3 +95,5 @@ const authSlice = createSlice({
 export const userReducer = authSlice.reducer;
 
 // export const getData = state => state.contacts.data;
+
+export const getIsLoggedIn = state => state.auth.isLoggedIn;

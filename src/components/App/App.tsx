@@ -1,16 +1,19 @@
 // import { Route, Routes } from 'react-router-dom';
-import { SignUp } from '../SignUp/SignUp';
-import { SignIn } from '../SignIn/SignIn';
+
 import { Container } from '../SignUp/SignUp.styled';
-import { ISignUpData, ISignInData } from '../../interfaces';
-import {
-  signUp,
-  logIn,
-  logOut,
-  fetchCurrentUser,
-} from '../../redux/auth/operations';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+
+import { fetchCurrentUser } from '../../redux/auth/operations';
+import { useAppDispatch } from '../../redux/hooks';
 import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+
+import { SignUpPage } from '../../pages/SignUpPage/SignUpPage';
+import { SignInPage } from '../../pages/SignInPage/SignInPage';
+import { HomePage } from '../../pages/HomePage/HomePage';
+import { SharedLayout } from '../SharedLayout/SharedLayout';
+import { Page404 } from '../../pages/Page404/Page404';
+import PrivateRoute from '../../UserMenu/PrivateRoute';
+import PublicRoute from '../../UserMenu/PublicRoute';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -18,30 +21,40 @@ export const App = () => {
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
-  const signUpHandler = (data: ISignUpData) => {
-    console.log(data);
-    dispatch(signUp(data));
-    return true;
-  };
 
-  const signInHandler = (data: ISignInData) => {
-    console.log(data);
-    dispatch(logIn(data));
-    return true;
-  };
   return (
     <Container>
-      <SignUp signUpHandler={signUpHandler}></SignUp>
-      <SignIn signInHandler={signInHandler}></SignIn>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<HomePage />}></Route>
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <SignUpPage />
+              </PublicRoute>
+            }
+          ></Route>
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <SignInPage />
+              </PublicRoute>
+            }
+          ></Route>
 
-      <button
-        type="button"
-        onClick={() => {
-          dispatch(logOut());
-        }}
-      >
-        Log out
-      </button>
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute>
+                <div>Contacts</div>
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route path="*" element={<Page404 />} />
+        </Route>
+      </Routes>
     </Container>
   );
 };
