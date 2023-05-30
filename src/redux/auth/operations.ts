@@ -1,7 +1,13 @@
 import axios from 'axios';
 import { getErrorMessage } from '../../getErrorMessage';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ISignUpData, ISignInData, IUserPayload } from '../../interfaces';
+import {
+  ISignUpData,
+  ISignInData,
+  IUserPayload,
+  IStore,
+  IUserInfo,
+} from '../../interfaces';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -65,12 +71,21 @@ export const logOut = createAsyncThunk<void, void>(
   }
 );
 
-export const isSignedIn = createAsyncThunk<void, void>(
-  'auth/isSignedIn',
+export const fetchCurrentUser = createAsyncThunk<IUserInfo, void>(
+  'auth/fetchCurrentUser',
   async (_, thunkAPI) => {
+    const state = thunkAPI.getState() as IStore;
+    const persistedToken = state.auth.token;
+    console.log(persistedToken);
+    if (persistedToken === null) {
+      console.log('no token');
+      return;
+    }
+    token.set(persistedToken);
     try {
-      const response = await axios.get('/users/current');
-      console.log(response);
+      const { data } = await axios.get('/users/current');
+      console.log(data);
+      return data;
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(getErrorMessage(error));

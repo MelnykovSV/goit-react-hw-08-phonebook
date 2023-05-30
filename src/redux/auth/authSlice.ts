@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { signUp, logIn, logOut, isSignedIn } from './operations';
-import { IAuthSliceState, IUserPayload } from '../../interfaces';
+import { signUp, logIn, logOut, fetchCurrentUser } from './operations';
+import { IAuthSliceState, IUserPayload, IUserInfo } from '../../interfaces';
 
 const initialState: IAuthSliceState = {
   user: { name: null, email: null },
@@ -67,18 +67,22 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = action.error.message || 'Something went wrong';
     });
-    //isSignedIn
-    builder.addCase(isSignedIn.pending, state => {
+    //fetchCurrentUser
+    builder.addCase(fetchCurrentUser.pending, state => {
       state.isLoading = true;
     });
-    builder.addCase(isSignedIn.fulfilled, state => {
-      // state.user = { name: null, email: null };
-      // state.token = null;s
-      // state.isLoggedIn = false;
-      // state.isLoading = false;
-      // state.error = null;
-    });
-    builder.addCase(isSignedIn.rejected, (state, action) => {
+    builder.addCase(
+      fetchCurrentUser.fulfilled,
+      (state, action: PayloadAction<IUserInfo>) => {
+        state.user = action.payload;
+        console.log(action.payload);
+
+        state.isLoggedIn = true;
+        state.isLoading = false;
+        state.error = null;
+      }
+    );
+    builder.addCase(fetchCurrentUser.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message || 'Something went wrong';
     });

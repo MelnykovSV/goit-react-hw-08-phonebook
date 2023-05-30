@@ -15,6 +15,11 @@ export interface ISignInData {
   password: string;
 }
 
+export interface IUserInfo {
+  name: string;
+  email: string;
+}
+
 export interface ISignUpProps {
   signUpHandler: (data: ISignUpData) => boolean;
 }
@@ -44,4 +49,8 @@ export interface IError {
 
 export interface IAxiosObject {
   defaults: { common: { Authorization?: string } };
+}
+
+export interface IStore {
+  auth: IAuthSliceState;
 }
