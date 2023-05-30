@@ -3,12 +3,11 @@ import { SignUp } from '../SignUp/SignUp';
 import { SignIn } from '../SignIn/SignIn';
 import { Container } from '../SignUp/SignUp.styled';
 import { ISignUpData, ISignInData } from '../../interfaces';
-import { signUp } from '../../redux/auth/operations';
-
-import { useSelector, useDispatch } from 'react-redux';
+import { signUp, signIn } from '../../redux/auth/operations';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 export const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const signUpHandler = (data: ISignUpData) => {
     console.log(data);
     dispatch(signUp(data));
@@ -17,6 +16,7 @@ export const App = () => {
 
   const signInHandler = (data: ISignInData) => {
     console.log(data);
+    dispatch(signIn(data));
     return true;
   };
   return (

@@ -21,3 +21,23 @@ export interface ISignUpProps {
 export interface ISignInProps {
   signInHandler: (data: ISignInData) => boolean;
 }
+
+export interface IAuthSliceState {
+  user: { name: string | null; email: string | null };
+  token: string | null;
+  isLoggedIn: boolean;
+  isLoading: boolean;
+  error: null | string;
+}
+
+export interface IUserPayload {
+  user: {
+    name: string;
+    email: string;
+  };
+  token: string;
+}
+
+export interface IError {
+  message: string;
+}
