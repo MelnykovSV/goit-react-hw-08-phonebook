@@ -3,11 +3,16 @@ import { SignUp } from '../SignUp/SignUp';
 import { SignIn } from '../SignIn/SignIn';
 import { Container } from '../SignUp/SignUp.styled';
 import { ISignUpData, ISignInData } from '../../interfaces';
-import { signUp, logIn, logOut } from '../../redux/auth/operations';
+import { signUp, logIn, logOut, isSignedIn } from '../../redux/auth/operations';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useEffect } from 'react';
 
 export const App = () => {
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(isSignedIn());
+  }, [dispatch]);
   const signUpHandler = (data: ISignUpData) => {
     console.log(data);
     dispatch(signUp(data));

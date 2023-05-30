@@ -64,3 +64,16 @@ export const logOut = createAsyncThunk<void, void>(
     }
   }
 );
+
+export const isSignedIn = createAsyncThunk<void, void>(
+  'auth/isSignedIn',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get('/users/current');
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(getErrorMessage(error));
+    }
+  }
+);
