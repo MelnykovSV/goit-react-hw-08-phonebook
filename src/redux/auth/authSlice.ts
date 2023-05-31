@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { signUp, logIn, logOut, fetchCurrentUser } from './operations';
-import { IAuthSliceState, IUserPayload, IUserInfo } from '../../interfaces';
+import {
+  IAuthSliceState,
+  IUserPayload,
+  IUserInfo,
+  IStore,
+} from '../../interfaces';
 
 const initialState: IAuthSliceState = {
   user: { name: null, email: null },
@@ -96,4 +101,4 @@ export const userReducer = authSlice.reducer;
 
 // export const getData = state => state.contacts.data;
 
-export const getIsLoggedIn = state => state.auth.isLoggedIn;
+export const getIsLoggedIn = (state: IStore) => state.auth.isLoggedIn;

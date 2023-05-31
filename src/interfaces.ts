@@ -1,3 +1,5 @@
+import { JsxElement } from 'typescript';
+
 export interface IUserData {
   name: string;
   email: string;
@@ -53,4 +55,7 @@ export interface IAxiosObject {
 
 export interface IStore {
   auth: IAuthSliceState;
+}
+export interface IRouteProps {
+  children: React.ReactNode;
 }
