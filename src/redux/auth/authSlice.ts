@@ -6,6 +6,7 @@ import {
   IUserInfo,
   IStore,
 } from '../../interfaces';
+import { isError, isPending } from '../statusCheckers';
 
 const initialState: IAuthSliceState = {
   user: { name: null, email: null },
@@ -72,14 +73,6 @@ function clearUserData(state: IAuthSliceState) {
   state.token = null;
   state.isLoggedIn = false;
   fulfill(state);
-}
-
-function isError(action: AnyAction) {
-  return action.type.endsWith('rejected');
-}
-
-function isPending(action: AnyAction) {
-  return action.type.endsWith('pending');
 }
 
 export const userReducer = authSlice.reducer;

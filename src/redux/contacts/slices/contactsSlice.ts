@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IContactsState, IContact, IFullState } from '../../../interfaces';
 import { fetchContacts, removeContact, addContact } from '../operations';
+import { isError, isPending } from '../../statusCheckers';
 
 const initialState: IContactsState = {
   items: [] as IContact[],
@@ -13,59 +14,43 @@ const contactsSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: builder => {
-    //fetchContacts
-    builder.addCase(fetchContacts.pending, (state: IContactsState) => {
-      state.isLoading = true;
-    });
     builder.addCase(
       fetchContacts.fulfilled,
       (state, action: PayloadAction<IContact[]>) => {
         state.items = action.payload;
-        state.isLoading = false;
-        state.error = null;
+        fulfill(state);
       }
     );
-    builder.addCase(fetchContacts.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message || 'Something went wrong';
-    });
-    //addContact
-    builder.addCase(addContact.pending, (state: IContactsState) => {
-      state.isLoading = true;
-    });
     builder.addCase(
       addContact.fulfilled,
       (state, action: PayloadAction<IContact>) => {
         state.items.push(action.payload);
-        state.isLoading = false;
-        state.error = null;
+        fulfill(state);
       }
     );
-    builder.addCase(addContact.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message || 'Something went wrong';
-    });
-    //removeContact
-    builder.addCase(removeContact.pending, (state: IContactsState) => {
-      state.isLoading = true;
-    });
     builder.addCase(
       removeContact.fulfilled,
       (state, action: PayloadAction<IContact>) => {
         state.items = state.items.filter(item => item.id !== action.payload.id);
-        state.isLoading = false;
-        state.error = null;
+        fulfill(state);
       }
     );
-    builder.addCase(removeContact.rejected, (state, action) => {
+    builder.addMatcher(isPending, state => {
+      state.isLoading = true;
+    });
+    builder.addMatcher(isError, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message || 'Something went wrong';
     });
   },
 });
 
-export const contactsReducer = contactsSlice.reducer;
+function fulfill(state: IContactsState) {
+  state.isLoading = false;
+  state.error = null;
+}
 
+export const contactsReducer = contactsSlice.reducer;
 export const getContacts = (state: IFullState) => state.contacts.items;
 export const getIsLoading = (state: IFullState) => state.contacts.isLoading;
 export const getError = (state: IFullState) => state.contacts.error;
