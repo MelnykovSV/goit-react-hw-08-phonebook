@@ -14,6 +14,7 @@ import { SharedLayout } from '../SharedLayout/SharedLayout';
 import { Page404 } from '../../pages/Page404/Page404';
 import PrivateRoute from '../../UserMenu/PrivateRoute';
 import PublicRoute from '../../UserMenu/PublicRoute';
+import { ContactsPage } from '../../pages/ContactsPage/ContactsPage';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -48,7 +49,7 @@ export const App = () => {
             path="/contacts"
             element={
               <PrivateRoute>
-                <div>Contacts</div>
+                <ContactsPage />
               </PrivateRoute>
             }
           ></Route>
