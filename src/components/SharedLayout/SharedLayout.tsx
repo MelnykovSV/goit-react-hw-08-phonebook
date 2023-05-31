@@ -6,6 +6,7 @@ import { logOut } from '../../redux/auth/operations';
 import { Suspense } from 'react';
 import { Watch } from 'react-loader-spinner';
 import { getIsLoggedIn } from '../../redux/auth/authSlice';
+import { UserMenu } from '../UserMenu/UserMenu';
 
 export const SharedLayout = () => {
   const dispatch = useAppDispatch();
@@ -18,18 +19,7 @@ export const SharedLayout = () => {
           {!isLoggedIn ? <NavLink to="/register">SignUp</NavLink> : null}
           {!isLoggedIn ? <NavLink to="/login">SignIn</NavLink> : null}
           {isLoggedIn ? <NavLink to="/contacts">Contacts</NavLink> : null}
-          {isLoggedIn ? (
-            <NavLink to="/contacts">
-              <button
-                type="button"
-                onClick={() => {
-                  dispatch(logOut());
-                }}
-              >
-                Log out
-              </button>
-            </NavLink>
-          ) : null}
+          {isLoggedIn ? <UserMenu /> : null}
         </nav>
       </header>
       <main>

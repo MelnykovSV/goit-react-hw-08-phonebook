@@ -64,7 +64,7 @@ export interface IRouteProps {
 
 export interface IContact {
   name: string;
-  phone: string;
+  number: string;
   id: string;
 }
 
@@ -76,7 +76,7 @@ export interface IContactsState {
 
 export interface IContact {
   name: string;
-  phone: string;
+  number: string;
   id: string;
 }
 
@@ -87,7 +87,7 @@ export interface IFullState {
 
 export interface IContactPostData {
   name: string;
-  phone: string;
+  number: string;
 }
 
 export interface IContactProps {
@@ -103,4 +103,8 @@ export interface IContactsListProps {
 
 export interface IFilterProps {
   contactsFilter: (value: string) => void;
+}
+
+export interface IFormProps {
+  formSubmit: (data: IContact) => boolean;
 }

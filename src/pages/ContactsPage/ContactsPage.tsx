@@ -45,7 +45,7 @@ export const ContactsPage = () => {
         (item: IContact) => item.name.toLowerCase() === normalizedName
       )
     ) {
-      dispatch(addContact({ name: data.name, phone: data.phone }));
+      dispatch(addContact({ name: data.name, number: data.number }));
       return true;
     } else {
       toast(`${data.name} is already in contacts.`);

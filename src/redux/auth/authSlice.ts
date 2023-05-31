@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { signUp, logIn, logOut, fetchCurrentUser } from './operations';
 import {
   IAuthSliceState,
@@ -97,8 +97,15 @@ const authSlice = createSlice({
   },
 });
 
+// function rejectHandler(state, action: AnyAction) {
+//   state.isLoading = false;
+//   state.error = action.payload;
+// }
+
 export const userReducer = authSlice.reducer;
 
 // export const getData = state => state.contacts.data;
 
 export const getIsLoggedIn = (state: IStore) => state.auth.isLoggedIn;
+
+export const getUser = (state: IStore) => state.auth.user;

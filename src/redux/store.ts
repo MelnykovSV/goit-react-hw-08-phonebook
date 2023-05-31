@@ -14,6 +14,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import { IAuthSliceState } from '../interfaces';
 
 const persistConfig = {
   key: 'auth',
@@ -21,15 +22,10 @@ const persistConfig = {
   whitelist: ['token'],
 };
 
-// const rootReducer = combineReducers({
-//   auth: userReducer,
-// });
-
-// const persistedRootReducer = persistReducer(persistConfig, rootReducer);
-
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(persistConfig, userReducer),
+    auth: persistReducer<IAuthSliceState>(persistConfig, userReducer),
+
     contacts: contactsReducer,
     filter: filterReducer,
   },

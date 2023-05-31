@@ -16,7 +16,7 @@ export const Form = ({ formSubmit }: IFormProps) => {
       )
       .required('This field is required')
       .trim(),
-    phone: yup
+    number: yup
       .string()
       .min(3, 'Minimum input length 3 symbols')
       .matches(
@@ -29,7 +29,7 @@ export const Form = ({ formSubmit }: IFormProps) => {
   async function submitHandler(
     values: {
       name: string;
-      phone: string;
+      number: string;
     },
     { resetForm }: { resetForm: () => void }
   ): Promise<void> {
@@ -49,7 +49,7 @@ export const Form = ({ formSubmit }: IFormProps) => {
   return (
     <Container>
       <Formik
-        initialValues={{ name: '', phone: '' }}
+        initialValues={{ name: '', number: '' }}
         onSubmit={submitHandler}
         validationSchema={schema}
       >
@@ -66,11 +66,11 @@ export const Form = ({ formSubmit }: IFormProps) => {
             Number
             <Field
               type="tel"
-              name="phone"
+              name="number"
               placeholder="Paste or type the number"
             />
             <span>
-              <ErrorMessage name="phone" />
+              <ErrorMessage name="number" />
             </span>
           </label>
 
