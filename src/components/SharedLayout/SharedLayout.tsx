@@ -1,15 +1,14 @@
 import { Container } from './SharedLayout.styled';
 import { NavLink, Outlet } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { logOut } from '../../redux/auth/operations';
+import { useAppSelector } from '../../redux/hooks';
+
 import { Suspense } from 'react';
 import { Watch } from 'react-loader-spinner';
 import { getIsLoggedIn } from '../../redux/auth/authSlice';
 import { UserMenu } from '../UserMenu/UserMenu';
 
 export const SharedLayout = () => {
-  const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector(getIsLoggedIn);
   return (
     <Container>

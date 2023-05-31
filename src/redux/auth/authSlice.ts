@@ -20,92 +20,68 @@ const authSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: builder => {
-    //signUp
-    builder.addCase(signUp.pending, state => {
-      state.isLoading = true;
-    });
     builder.addCase(
       signUp.fulfilled,
       (state, action: PayloadAction<IUserPayload>) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isLoggedIn = true;
-        state.isLoading = false;
-        state.error = null;
+        setUserData(state, action);
       }
     );
-    builder.addCase(signUp.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message || 'Something went wrong';
-    });
-
-    //logIn
-    builder.addCase(logIn.pending, state => {
-      state.isLoading = true;
-    });
     builder.addCase(
       logIn.fulfilled,
       (state, action: PayloadAction<IUserPayload>) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isLoggedIn = true;
-        state.isLoading = false;
-        state.error = null;
+        setUserData(state, action);
       }
     );
-    builder.addCase(logIn.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message || 'Something went wrong';
-    });
-    //logOut
-    builder.addCase(logOut.pending, state => {
-      state.isLoading = true;
-    });
     builder.addCase(logOut.fulfilled, state => {
-      state.user = { name: null, email: null };
-      state.token = null;
-      state.isLoggedIn = false;
-      state.isLoading = false;
-      state.error = null;
-    });
-    builder.addCase(logOut.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message || 'Something went wrong';
-    });
-    //fetchCurrentUser
-    builder.addCase(fetchCurrentUser.pending, state => {
-      state.isLoading = true;
+      clearUserData(state);
     });
     builder.addCase(
       fetchCurrentUser.fulfilled,
       (state, action: PayloadAction<IUserInfo>) => {
         state.user = action.payload;
-        console.log(action.payload);
-
-        state.isLoading = false;
-        state.error = null;
-
+        fulfill(state);
         if (action.payload) {
           state.isLoggedIn = true;
         }
       }
     );
-    builder.addCase(fetchCurrentUser.rejected, (state, action) => {
+    builder.addMatcher(isPending, state => {
+      state.isLoading = true;
+    });
+    builder.addMatcher(isError, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message || 'Something went wrong';
     });
   },
 });
 
-// function rejectHandler(state, action: AnyAction) {
-//   state.isLoading = false;
-//   state.error = action.payload;
-// }
+function fulfill(state: IAuthSliceState) {
+  state.isLoading = false;
+  state.error = null;
+}
+
+function setUserData(state: IAuthSliceState, action: AnyAction) {
+  state.user = action.payload.user;
+  state.token = action.payload.token;
+  state.isLoggedIn = true;
+  fulfill(state);
+}
+
+function clearUserData(state: IAuthSliceState) {
+  state.user = { name: null, email: null };
+  state.token = null;
+  state.isLoggedIn = false;
+  fulfill(state);
+}
+
+function isError(action: AnyAction) {
+  return action.type.endsWith('rejected');
+}
+
+function isPending(action: AnyAction) {
+  return action.type.endsWith('pending');
+}
 
 export const userReducer = authSlice.reducer;
-
-// export const getData = state => state.contacts.data;
-
 export const getIsLoggedIn = (state: IStore) => state.auth.isLoggedIn;
-
 export const getUser = (state: IStore) => state.auth.user;

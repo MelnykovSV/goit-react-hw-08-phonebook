@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Container } from './Contactslist.styled';
 import { IContactsListProps } from '../../interfaces';
 import { Contact } from '../Contact/Contact';
