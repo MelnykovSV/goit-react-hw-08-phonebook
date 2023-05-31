@@ -3,7 +3,7 @@ import { ISignInData } from '../../interfaces';
 import { useAppDispatch } from '../../redux/hooks';
 import { logIn } from '../../redux/auth/operations';
 
-export const SignInPage = () => {
+const SignInPage = () => {
   const dispatch = useAppDispatch();
 
   const signInHandler = (data: ISignInData) => {
@@ -17,3 +17,5 @@ export const SignInPage = () => {
     </div>
   );
 };
+
+export default SignInPage as React.ComponentType;
