@@ -7,6 +7,7 @@ import { Suspense } from 'react';
 import { Watch } from 'react-loader-spinner';
 import { getToken } from '../../redux/auth/authSlice';
 import { UserMenu } from '../UserMenu/UserMenu';
+import { ResponsiveAppBar } from './ResponsiveAppBar';
 
 export const SharedLayout = () => {
   const token = useAppSelector(getToken);
@@ -20,6 +21,7 @@ export const SharedLayout = () => {
           {token ? <NavLink to="/contacts">Contacts</NavLink> : null}
           {token ? <UserMenu /> : null}
         </nav>
+        <ResponsiveAppBar />
       </header>
       <main>
         <Suspense
