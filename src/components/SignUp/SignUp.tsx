@@ -3,7 +3,15 @@ import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { ISignUpProps, ISignUpData } from '../../interfaces';
 
+import { TextField } from 'formik-mui';
+import { Button, LinearProgress } from '@mui/material';
+
+import { getIsLoading } from '../../redux/auth/authSlice';
+import { useAppSelector } from '../../redux/hooks';
+
 export const SignUp = ({ signUpHandler }: ISignUpProps) => {
+  const isLoading = useAppSelector(getIsLoading);
+
   const schema = yup.object().shape({
     name: yup
       .string()
@@ -49,42 +57,52 @@ export const SignUp = ({ signUpHandler }: ISignUpProps) => {
   }
 
   return (
-    <Container>
+    <Container className="form-container">
+      <h2>Sign Up</h2>
+      <p>It's quick and easy.</p>
       <Formik
         initialValues={{ name: '', email: '', password: '' }}
         onSubmit={submitHandler}
         validationSchema={schema}
       >
         <FormikForm>
-          <label>
-            Name
-            <Field type="text" name="name" placeholder="Enter your name" />
-            <span>
-              <ErrorMessage name="name" />
-            </span>
-          </label>
+          <Field
+            component={TextField}
+            type="text"
+            name="name"
+            fullWidth
+            autoFocus
+            label="Enter your name"
+            size="small"
+            margin="normal"
+          />
 
-          <label>
-            Email
-            <Field type="email" name="email" placeholder="Enter your email" />
-            <span>
-              <ErrorMessage name="email" />
-            </span>
-          </label>
+          <Field
+            component={TextField}
+            type="email"
+            name="email"
+            fullWidth
+            label="Enter your email"
+            size="small"
+            margin="normal"
+          />
+          <Field
+            component={TextField}
+            type="password"
+            name="password"
+            fullWidth
+            label="Enter your password"
+            size="small"
+            margin="normal"
+          />
 
-          <label>
-            Password
-            <Field
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-            />
-            <span>
-              <ErrorMessage name="password" />
-            </span>
-          </label>
+          {isLoading && <LinearProgress />}
 
-          <button type="submit">Submit</button>
+          {/* <button type="submit">Submit</button> */}
+          <Button variant="contained" color="primary" type="submit">
+            Submit
+          </Button>
+          {/* <LinearProgress /> */}
         </FormikForm>
       </Formik>
     </Container>

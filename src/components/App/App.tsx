@@ -33,7 +33,7 @@ export const App = () => {
     <Container>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          {/* <Route index element={<HomePage />}></Route> */}
+          <Route index element={<HomePage />}></Route>
           <Route
             path="/register"
             element={

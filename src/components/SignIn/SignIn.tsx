@@ -3,7 +3,14 @@ import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { ISignInProps, ISignInData } from '../../interfaces';
 
+import { TextField } from 'formik-mui';
+import { Button, LinearProgress } from '@mui/material';
+
+import { getIsLoading } from '../../redux/auth/authSlice';
+import { useAppSelector } from '../../redux/hooks';
+
 export const SignIn = ({ signInHandler }: ISignInProps) => {
+  const isLoading = useAppSelector(getIsLoading);
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -34,34 +41,39 @@ export const SignIn = ({ signInHandler }: ISignInProps) => {
   }
 
   return (
-    <Container>
+    <Container className="form-container">
+      <h2>Sign In</h2>
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={submitHandler}
         validationSchema={schema}
       >
         <FormikForm>
-          <label>
-            Email
-            <Field type="email" name="email" placeholder="Enter your email" />
-            <span>
-              <ErrorMessage name="email" />
-            </span>
-          </label>
+          <Field
+            component={TextField}
+            type="email"
+            name="email"
+            fullWidth
+            label="Enter your email"
+            size="small"
+            margin="normal"
+            autoFocus
+          />
+          <Field
+            component={TextField}
+            type="password"
+            name="password"
+            fullWidth
+            label="Enter your password"
+            size="small"
+            margin="normal"
+          />
 
-          <label>
-            Password
-            <Field
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-            />
-            <span>
-              <ErrorMessage name="password" />
-            </span>
-          </label>
+          {isLoading && <LinearProgress />}
 
-          <button type="submit">Submit</button>
+          <Button variant="contained" color="primary" type="submit">
+            Submit
+          </Button>
         </FormikForm>
       </Formik>
     </Container>

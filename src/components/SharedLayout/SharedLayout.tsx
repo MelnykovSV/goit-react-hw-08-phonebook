@@ -14,6 +14,7 @@ export const SharedLayout = () => {
     <Container>
       <header>
         <nav>
+          <NavLink to="/">Home</NavLink>
           {!token ? <NavLink to="/register">SignUp</NavLink> : null}
           {!token ? <NavLink to="/login">SignIn</NavLink> : null}
           {token ? <NavLink to="/contacts">Contacts</NavLink> : null}
