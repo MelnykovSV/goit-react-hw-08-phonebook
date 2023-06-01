@@ -33,6 +33,10 @@ export const signUp = createAsyncThunk<IUserPayload, ISignUpData>(
       token.set(response.data.token);
       return response.data;
     } catch (error) {
+      if (error.response.status === 400) {
+        console.log('User creation error.');
+        return thunkAPI.rejectWithValue(getErrorMessage(error));
+      }
       console.log(error);
       return thunkAPI.rejectWithValue(getErrorMessage(error));
     }
@@ -51,6 +55,10 @@ export const logIn = createAsyncThunk<IUserPayload, ISignInData>(
       token.set(response.data.token);
       return response.data;
     } catch (error) {
+      if (error.response.status === 400) {
+        console.log('Login error');
+        return thunkAPI.rejectWithValue(getErrorMessage(error));
+      }
       console.log(error);
       return thunkAPI.rejectWithValue(getErrorMessage(error));
     }
