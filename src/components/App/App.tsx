@@ -1,20 +1,23 @@
 // import { Route, Routes } from 'react-router-dom';
+// import { lazy } from 'react';
 
 import { Container } from '../SignUp/SignUp.styled';
 
 import { fetchCurrentUser } from '../../redux/auth/operations';
 import { useAppDispatch } from '../../redux/hooks';
-import { useEffect } from 'react';
+import { useEffect, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
-import { SignUpPage } from '../../pages/SignUpPage/SignUpPage';
-import { SignInPage } from '../../pages/SignInPage/SignInPage';
-import { HomePage } from '../../pages/HomePage/HomePage';
 import { SharedLayout } from '../SharedLayout/SharedLayout';
-import { Page404 } from '../../pages/Page404/Page404';
 import PrivateRoute from '../../UserMenu/PrivateRoute';
 import PublicRoute from '../../UserMenu/PublicRoute';
-import { ContactsPage } from '../../pages/ContactsPage/ContactsPage';
+
+const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
+const ContactsPage = lazy(
+  () => import('../../pages/ContactsPage/ContactsPage')
+);
+const Page404 = lazy(() => import('../../pages/Page404/Page404'));
+const SignUpPage = lazy(() => import('../../pages/SignUpPage/SignUpPage'));
+const SignInPage = lazy(() => import('../../pages/SignInPage/SignInPage'));
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -22,6 +25,7 @@ export const App = () => {
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
+  console.log(HomePage);
 
   return (
     <Container>
