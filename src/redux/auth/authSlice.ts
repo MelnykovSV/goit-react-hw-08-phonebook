@@ -78,3 +78,4 @@ function clearUserData(state: IAuthSliceState) {
 export const userReducer = authSlice.reducer;
 export const getIsLoggedIn = (state: IStore) => state.auth.isLoggedIn;
 export const getUser = (state: IStore) => state.auth.user;
+export const getToken = (state: IStore) => state.auth.token;
