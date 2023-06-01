@@ -3,7 +3,7 @@ import { ISignUpData } from '../../interfaces';
 import { useAppDispatch } from '../../redux/hooks';
 import { signUp } from '../../redux/auth/operations';
 
-export const SignUpPage = () => {
+const SignUpPage = () => {
   const dispatch = useAppDispatch();
 
   const signUpHandler = (data: ISignUpData) => {
@@ -17,3 +17,5 @@ export const SignUpPage = () => {
     </div>
   );
 };
+
+export default SignUpPage;

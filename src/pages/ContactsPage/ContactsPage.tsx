@@ -26,7 +26,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
-export const ContactsPage = () => {
+const ContactsPage = () => {
   const dispatch = useAppDispatch();
 
   const filter = useAppSelector(getFilter);
@@ -86,3 +86,5 @@ export const ContactsPage = () => {
     </Container>
   );
 };
+
+export default ContactsPage;
