@@ -9,8 +9,8 @@ export const UserMenu = () => {
 
   return (
     <Container>
-      <b>{user.name}</b>
-      <p>{user.email}</p>
+      <b>{user.name || 'LOADING NAME...'}</b>
+      <p>{user.email || 'LOADING EMAIL...'}</p>
       <button
         onClick={() => {
           dispatch(logOut());

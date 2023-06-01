@@ -7,6 +7,8 @@ export default function PublicRoute({ children, ...routeProps }: IRouteProps) {
   const isLoggedIn = useAppSelector(getIsLoggedIn);
 
   return (
-    <div {...routeProps}>{isLoggedIn ? <Navigate to="/" /> : children}</div>
+    <div {...routeProps}>
+      {isLoggedIn ? <Navigate to="/contacts" /> : children}
+    </div>
   );
 }

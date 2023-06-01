@@ -79,3 +79,4 @@ export const userReducer = authSlice.reducer;
 export const getIsLoggedIn = (state: IStore) => state.auth.isLoggedIn;
 export const getUser = (state: IStore) => state.auth.user;
 export const getToken = (state: IStore) => state.auth.token;
+export const getIsLoading = (state: IStore) => state.auth.isLoading;

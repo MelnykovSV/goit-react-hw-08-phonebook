@@ -7,7 +7,10 @@ import {
   IUserPayload,
   IStore,
   IUserInfo,
+  IAxiosError,
 } from '../../interfaces';
+
+import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -33,12 +36,13 @@ export const signUp = createAsyncThunk<IUserPayload, ISignUpData>(
       token.set(response.data.token);
       return response.data;
     } catch (error) {
-      if (error.response.status === 400) {
-        console.log('User creation error.');
-        return thunkAPI.rejectWithValue(getErrorMessage(error));
+      const axiosError = error as IAxiosError;
+      if (axiosError.response.status === 400) {
+        toast.error('User creation error.');
+        return thunkAPI.rejectWithValue(getErrorMessage(axiosError));
       }
-      console.log(error);
-      return thunkAPI.rejectWithValue(getErrorMessage(error));
+      toast.error('Unexpected error occured');
+      return thunkAPI.rejectWithValue(getErrorMessage(axiosError));
     }
   }
 );
@@ -55,12 +59,14 @@ export const logIn = createAsyncThunk<IUserPayload, ISignInData>(
       token.set(response.data.token);
       return response.data;
     } catch (error) {
-      if (error.response.status === 400) {
-        console.log('Login error');
-        return thunkAPI.rejectWithValue(getErrorMessage(error));
+      const axiosError = error as IAxiosError;
+      if (axiosError.response.status === 400) {
+        toast.error('Login error');
+
+        return thunkAPI.rejectWithValue(getErrorMessage(axiosError));
       }
-      console.log(error);
-      return thunkAPI.rejectWithValue(getErrorMessage(error));
+      toast.error('Unexpected error occured');
+      return thunkAPI.rejectWithValue(getErrorMessage(axiosError));
     }
   }
 );

@@ -106,3 +106,7 @@ export interface IFilterProps {
 export interface IFormProps {
   formSubmit: (data: IContact) => boolean;
 }
+
+export interface IAxiosError {
+  response: { status: number };
+}

@@ -5,20 +5,19 @@ import { useAppSelector } from '../../redux/hooks';
 
 import { Suspense } from 'react';
 import { Watch } from 'react-loader-spinner';
-import { getIsLoggedIn } from '../../redux/auth/authSlice';
+import { getToken } from '../../redux/auth/authSlice';
 import { UserMenu } from '../UserMenu/UserMenu';
 
 export const SharedLayout = () => {
-  const isLoggedIn = useAppSelector(getIsLoggedIn);
+  const token = useAppSelector(getToken);
   return (
     <Container>
       <header>
         <nav>
-          <NavLink to="/">Home</NavLink>
-          {!isLoggedIn ? <NavLink to="/register">SignUp</NavLink> : null}
-          {!isLoggedIn ? <NavLink to="/login">SignIn</NavLink> : null}
-          {isLoggedIn ? <NavLink to="/contacts">Contacts</NavLink> : null}
-          {isLoggedIn ? <UserMenu /> : null}
+          {!token ? <NavLink to="/register">SignUp</NavLink> : null}
+          {!token ? <NavLink to="/login">SignIn</NavLink> : null}
+          {token ? <NavLink to="/contacts">Contacts</NavLink> : null}
+          {token ? <UserMenu /> : null}
         </nav>
       </header>
       <main>

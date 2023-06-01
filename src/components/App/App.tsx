@@ -10,6 +10,8 @@ import { Route, Routes } from 'react-router-dom';
 import { SharedLayout } from '../SharedLayout/SharedLayout';
 import PrivateRoute from '../../UserMenu/PrivateRoute';
 import PublicRoute from '../../UserMenu/PublicRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 const ContactsPage = lazy(
@@ -31,7 +33,7 @@ export const App = () => {
     <Container>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route index element={<HomePage />}></Route>
+          {/* <Route index element={<HomePage />}></Route> */}
           <Route
             path="/register"
             element={
@@ -60,6 +62,7 @@ export const App = () => {
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </Container>
   );
 };
