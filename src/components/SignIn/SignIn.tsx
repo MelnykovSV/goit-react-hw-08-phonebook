@@ -1,5 +1,5 @@
 import { Container } from './SignIn.styled';
-import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
+import { Formik, Form as FormikForm, Field } from 'formik';
 import * as yup from 'yup';
 import { ISignInProps, ISignInData } from '../../interfaces';
 

@@ -7,7 +7,6 @@ const SignUpPage = () => {
   const dispatch = useAppDispatch();
 
   const signUpHandler = (data: ISignUpData) => {
-    console.log(data);
     dispatch(signUp(data));
     return true;
   };

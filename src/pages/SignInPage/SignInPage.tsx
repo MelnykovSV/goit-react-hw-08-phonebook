@@ -7,7 +7,6 @@ const SignInPage = () => {
   const dispatch = useAppDispatch();
 
   const signInHandler = (data: ISignInData) => {
-    console.log(data);
     dispatch(logIn(data));
     return true;
   };

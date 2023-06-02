@@ -32,7 +32,6 @@ export const signUp = createAsyncThunk<IUserPayload, ISignUpData>(
         email,
         password,
       });
-      console.log(response);
       token.set(response.data.token);
       return response.data;
     } catch (error) {
@@ -55,7 +54,6 @@ export const logIn = createAsyncThunk<IUserPayload, ISignInData>(
         email,
         password,
       });
-      console.log(response.data.token);
       token.set(response.data.token);
       return response.data;
     } catch (error) {
@@ -75,11 +73,9 @@ export const logOut = createAsyncThunk<void, void>(
   'auth/logOut',
   async (_, thunkAPI) => {
     try {
-      const response = await axios.post('/users/logout');
-      console.log(response);
+      await axios.post('/users/logout');
       token.unset();
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(getErrorMessage(error));
     }
   }
@@ -90,18 +86,14 @@ export const fetchCurrentUser = createAsyncThunk<IUserInfo, void>(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState() as IStore;
     const persistedToken = state.auth.token;
-    console.log(persistedToken);
     if (persistedToken === null) {
-      console.log('no token');
       return;
     }
     token.set(persistedToken);
     try {
       const { data } = await axios.get('/users/current');
-      console.log(data);
       return data;
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(getErrorMessage(error));
     }
   }
