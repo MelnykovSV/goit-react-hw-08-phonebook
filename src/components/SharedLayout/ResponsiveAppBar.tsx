@@ -14,16 +14,17 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { NavLink, Outlet } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
-import { getToken } from '../../redux/auth/authSlice';
+import { getToken, getUser } from '../../redux/auth/authSlice';
 import { UserMenu } from '../UserMenu/UserMenu';
 
 // const pages = ['register', 'login', 'contacts'];
 const publicPages = ['register', 'login'];
 const privatePages = ['contacts'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export function ResponsiveAppBar() {
   const token = useAppSelector(getToken);
+  const user = useAppSelector(getUser);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -128,7 +129,10 @@ export function ResponsiveAppBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Demy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar
+                    alt={`${user.name}`}
+                    src="/static/images/avatar/2.jpg"
+                  />
                 </IconButton>
               </Tooltip>
 
