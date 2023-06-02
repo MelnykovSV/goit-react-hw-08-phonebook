@@ -110,3 +110,7 @@ export interface IFormProps {
 export interface IAxiosError {
   response: { status: number };
 }
+
+export interface IUserMenuProps {
+  handleCloseUserMenu: () => void;
+}

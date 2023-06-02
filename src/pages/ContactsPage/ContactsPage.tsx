@@ -71,16 +71,23 @@ const ContactsPage = () => {
   return (
     <Container>
       <ModernNormalize />
-      <h2>Phonebook</h2>
+      <div className="contacts-container">
+        <div className="contacts-form-container">
+          <h2>Add new contacts</h2>
 
-      <Form formSubmit={formSubmitHandler}></Form>
-      {isLoading && !error && <b>Request in progress...</b>}
-      <h2>Contacts</h2>
-      <Filter contactsFilter={contactsFilter} />
-      <ContactsList
-        filteredContacts={filteredContacts}
-        contactDeleteHandler={contactDeleteHandler}
-      />
+          <Form formSubmit={formSubmitHandler}></Form>
+          {isLoading && !error && <b>Request in progress...</b>}
+        </div>
+
+        <div className="contacts-list-container">
+          <h2>Your contacts</h2>
+          <Filter contactsFilter={contactsFilter} />
+          <ContactsList
+            filteredContacts={filteredContacts}
+            contactDeleteHandler={contactDeleteHandler}
+          />
+        </div>
+      </div>
 
       <ToastContainer />
     </Container>

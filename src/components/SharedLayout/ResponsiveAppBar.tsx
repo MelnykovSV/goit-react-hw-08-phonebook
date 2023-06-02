@@ -51,7 +51,13 @@ export function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'flex', md: 'none' },
+              alignItems: 'center',
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -80,6 +86,11 @@ export function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
+              <MenuItem key="Home" onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">
+                  <NavLink to={`/`}>Home</NavLink>
+                </Typography>
+              </MenuItem>
               {publicPages.map(page =>
                 !token ? (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
@@ -101,13 +112,34 @@ export function ResponsiveAppBar() {
             </Menu>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Button
+              key="Home"
+              onClick={handleCloseNavMenu}
+              className="menu-button"
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              <NavLink to={`/`}>Home</NavLink>
+            </Button>
             {publicPages.map(page =>
               !token ? (
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  className="menu-button"
+                  sx={{
+                    my: 2,
+                    color: 'white',
+                    display: 'block',
+                    margin: 'auto',
+                  }}
                 >
                   <NavLink to={`/${page}`}>{page}</NavLink>
                 </Button>
@@ -118,6 +150,7 @@ export function ResponsiveAppBar() {
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
+                  className="menu-button"
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   <NavLink to={`/${page}`}>{page}</NavLink>
@@ -127,8 +160,11 @@ export function ResponsiveAppBar() {
           </Box>
           {token ? (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Tooltip className="avatar" title="Open settings">
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  sx={{ p: 0, marginTop: '0' }}
+                >
                   <Avatar
                     alt={`${user.name}`}
                     src="/static/images/avatar/2.jpg"
@@ -152,7 +188,7 @@ export function ResponsiveAppBar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <UserMenu />
+                <UserMenu handleCloseUserMenu={handleCloseUserMenu} />
 
                 {/* {settings.map(setting => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
