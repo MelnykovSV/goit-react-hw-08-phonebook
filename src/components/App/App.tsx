@@ -27,7 +27,6 @@ export const App = () => {
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
-  console.log(HomePage);
 
   return (
     <Container>
