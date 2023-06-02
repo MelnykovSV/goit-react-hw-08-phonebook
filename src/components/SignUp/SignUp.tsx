@@ -1,5 +1,5 @@
 import { Container } from './SignUp.styled';
-import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
+import { Formik, Form as FormikForm, Field } from 'formik';
 import * as yup from 'yup';
 import { ISignUpProps, ISignUpData } from '../../interfaces';
 
@@ -98,11 +98,9 @@ export const SignUp = ({ signUpHandler }: ISignUpProps) => {
 
           {isLoading && <LinearProgress />}
 
-          {/* <button type="submit">Submit</button> */}
           <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
-          {/* <LinearProgress /> */}
         </FormikForm>
       </Formik>
     </Container>

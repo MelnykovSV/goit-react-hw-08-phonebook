@@ -4,6 +4,7 @@ import { Contact } from '../Contact/Contact';
 
 import { useAppSelector } from '../../redux/hooks';
 import { getIsLoading } from '../../redux/contacts/slices/contactsSlice';
+import { LinearProgress } from '@mui/material';
 
 export const ContactsList = ({
   filteredContacts,
@@ -26,6 +27,6 @@ export const ContactsList = ({
       </ul>
     </Container>
   ) : (
-    <div>Loading...</div>
+    <LinearProgress />
   );
 };

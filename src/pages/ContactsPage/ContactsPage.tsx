@@ -11,11 +11,7 @@ import {
   getFilter,
 } from '../../redux/contacts/slices/filterSlice';
 
-import {
-  getContacts,
-  getIsLoading,
-  getError,
-} from '../../redux/contacts/slices/contactsSlice';
+import { getContacts } from '../../redux/contacts/slices/contactsSlice';
 
 import {
   fetchContacts,
@@ -26,13 +22,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
+import { StatusIndicator } from '../../components/StatusIndicator/StatusIndicator';
+
 const ContactsPage = () => {
   const dispatch = useAppDispatch();
 
   const filter = useAppSelector(getFilter);
   const contacts = useAppSelector(getContacts);
-  const isLoading = useAppSelector(getIsLoading);
-  const error = useAppSelector(getError);
+
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
@@ -76,7 +73,7 @@ const ContactsPage = () => {
           <h2>Add new contacts</h2>
 
           <Form formSubmit={formSubmitHandler}></Form>
-          {isLoading && !error && <b>Request in progress...</b>}
+          <StatusIndicator />
         </div>
 
         <div className="contacts-list-container">

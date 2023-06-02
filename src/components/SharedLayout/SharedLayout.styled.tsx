@@ -10,6 +10,11 @@ export const Container = styled.div`
         color: #2a2e70;
       }
     }
+
+    .nav-link {
+      display: block;
+      padding: 6px 16px;
+    }
   }
   .avatar {
     margin: 0;

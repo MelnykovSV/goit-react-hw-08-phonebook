@@ -11,16 +11,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { NavLink, Outlet } from 'react-router-dom';
+
+import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
 import { getToken, getUser } from '../../redux/auth/authSlice';
 import { UserMenu } from '../UserMenu/UserMenu';
 
-// const pages = ['register', 'login', 'contacts'];
 const publicPages = ['register', 'login'];
 const privatePages = ['contacts'];
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export function ResponsiveAppBar() {
   const token = useAppSelector(getToken);
@@ -129,13 +127,13 @@ export function ResponsiveAppBar() {
               className="menu-button"
               variant="contained"
               color="info"
-              // sx={{
-              //   my: 2,
-              //   color: 'white',
-              //   display: 'block',
-              // }}
+              sx={{
+                padding: 0,
+              }}
             >
-              <NavLink to={`/`}>Home</NavLink>
+              <NavLink className="nav-link" to={`/`}>
+                Home
+              </NavLink>
             </Button>
             {publicPages.map(page =>
               !token ? (
@@ -146,13 +144,12 @@ export function ResponsiveAppBar() {
                   variant="contained"
                   color="info"
                   sx={{
-                    my: 2,
-
-                    display: 'block',
-                    margin: 'auto',
+                    padding: 0,
                   }}
                 >
-                  <NavLink to={`/${page}`}>{page}</NavLink>
+                  <NavLink className="nav-link" to={`/${page}`}>
+                    {page}
+                  </NavLink>
                 </Button>
               ) : null
             )}
@@ -164,9 +161,11 @@ export function ResponsiveAppBar() {
                   className="menu-button"
                   variant="contained"
                   color="info"
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ padding: 0 }}
                 >
-                  <NavLink to={`/${page}`}>{page}</NavLink>
+                  <NavLink className="nav-link" to={`/${page}`}>
+                    {page}
+                  </NavLink>
                 </Button>
               ) : null
             )}
@@ -210,12 +209,6 @@ export function ResponsiveAppBar() {
                 onClose={handleCloseUserMenu}
               >
                 <UserMenu handleCloseUserMenu={handleCloseUserMenu} />
-
-                {/* {settings.map(setting => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))} */}
               </Menu>
             </Box>
           ) : null}
