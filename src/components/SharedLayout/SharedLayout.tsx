@@ -14,13 +14,13 @@ export const SharedLayout = () => {
   return (
     <Container>
       <header>
-        <nav>
+        {/* <nav>
           <NavLink to="/">Home</NavLink>
           {!token ? <NavLink to="/register">SignUp</NavLink> : null}
           {!token ? <NavLink to="/login">SignIn</NavLink> : null}
           {token ? <NavLink to="/contacts">Contacts</NavLink> : null}
           {token ? <UserMenu /> : null}
-        </nav>
+        </nav> */}
         <ResponsiveAppBar />
       </header>
       <main>

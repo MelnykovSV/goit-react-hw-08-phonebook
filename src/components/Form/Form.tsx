@@ -4,8 +4,6 @@ import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { IFormProps } from '../../interfaces';
 import shortid from 'shortid';
-import { TextField } from 'formik-mui';
-import { Button, LinearProgress } from '@mui/material';
 
 export const Form = ({ formSubmit }: IFormProps) => {
   const schema = yup.object().shape({
@@ -58,12 +56,7 @@ export const Form = ({ formSubmit }: IFormProps) => {
         <FormikForm>
           <label>
             Name
-            <Field
-              component={TextField}
-              type="text"
-              name="name"
-              placeholder="Name your contact"
-            />
+            <Field type="text" name="name" placeholder="Name your contact" />
             <span>
               <ErrorMessage name="name" />
             </span>
@@ -82,14 +75,6 @@ export const Form = ({ formSubmit }: IFormProps) => {
           </label>
 
           <button type="submit">Add contact</button>
-          <Button
-            variant="contained"
-            color="primary"
-            // disabled={isSubmitting}
-            // onClick={submitForm}
-          >
-            Submit
-          </Button>
         </FormikForm>
       </Formik>
     </Container>
