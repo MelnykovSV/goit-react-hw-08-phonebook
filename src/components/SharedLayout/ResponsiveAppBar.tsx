@@ -65,12 +65,14 @@ export function ResponsiveAppBar() {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
+              className="menu-button"
             >
               <MenuIcon />
             </IconButton>
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
+              className="mobile-menu"
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
@@ -116,6 +118,7 @@ export function ResponsiveAppBar() {
             sx={{
               flexGrow: 1,
               display: { xs: 'none', md: 'flex' },
+              gap: '20px',
               alignItems: 'center',
               justifyContent: 'center',
             }}
@@ -124,7 +127,13 @@ export function ResponsiveAppBar() {
               key="Home"
               onClick={handleCloseNavMenu}
               className="menu-button"
-              sx={{ my: 2, color: 'white', display: 'block' }}
+              variant="contained"
+              color="info"
+              // sx={{
+              //   my: 2,
+              //   color: 'white',
+              //   display: 'block',
+              // }}
             >
               <NavLink to={`/`}>Home</NavLink>
             </Button>
@@ -134,9 +143,11 @@ export function ResponsiveAppBar() {
                   key={page}
                   onClick={handleCloseNavMenu}
                   className="menu-button"
+                  variant="contained"
+                  color="info"
                   sx={{
                     my: 2,
-                    color: 'white',
+
                     display: 'block',
                     margin: 'auto',
                   }}
@@ -151,6 +162,8 @@ export function ResponsiveAppBar() {
                   key={page}
                   onClick={handleCloseNavMenu}
                   className="menu-button"
+                  variant="contained"
+                  color="info"
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   <NavLink to={`/${page}`}>{page}</NavLink>
@@ -163,12 +176,20 @@ export function ResponsiveAppBar() {
               <Tooltip className="avatar" title="Open settings">
                 <IconButton
                   onClick={handleOpenUserMenu}
-                  sx={{ p: 0, marginTop: '0' }}
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    backgroundColor: '#bdbdbd',
+                    p: 0,
+                    marginTop: '0',
+                  }}
                 >
-                  <Avatar
-                    alt={`${user.name}`}
-                    src="/static/images/avatar/2.jpg"
-                  />
+                  {user.name ? (
+                    <Avatar
+                      alt={`${user.name}`}
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  ) : null}
                 </IconButton>
               </Tooltip>
 
